@@ -1,4 +1,4 @@
-% ######################### Feb 23, 2024
+% ######################### Feb 23, 2025
 % ######################### Mini MATLAB Project: Beampattern and Beamwidth Analysis of Two Uniform Linear Arrays
 % ######################### Written by Shima Mashhadi, PhD student at Rochester Institute of Technology, supervised by Professor Alireza Vahid.
 % ######################### EEEE-789 Spectrum Sharing
