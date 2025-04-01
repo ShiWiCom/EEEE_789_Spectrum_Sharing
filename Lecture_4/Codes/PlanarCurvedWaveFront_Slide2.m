@@ -34,6 +34,8 @@ end
 %% Plot the results
 %% Planar WaveFront
 figure(1);
+set(gcf, 'Color', 'w')
+
 % imagesc(x, (z), real(G_results')); % Heatmap
 h = surf(x, z_Planar, real(WaveFront_Planar'), ...
     'EdgeColor', [0.3 0.3 0.3], ...       % Darker edge for better contrast
@@ -55,6 +57,8 @@ ylabel('z','FontSize', 14);
 box on;
 %% Curved WaveFront
 figure(2);
+set(gcf, 'Color', 'w')
+
 % imagesc(x, (z), real(G_results')); % Heatmap
 h = surf(x, z_Curved, real(WaveFront_Curved'), ...
     'EdgeColor', [0.3 0.3 0.3], ...       % Darker edge for better contrast
