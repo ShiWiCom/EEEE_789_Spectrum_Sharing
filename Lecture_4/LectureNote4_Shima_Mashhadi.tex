@@ -1,0 +1,270 @@
+\documentclass[twoside]{article}
+\usepackage{hyperref}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{cite,graphicx,algorithm,enumerate}
+\usepackage{amssymb}
+\usepackage[makeroom]{cancel}
+\usepackage[autostyle]{csquotes}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf EEEE789 Spectrum Sharing \& Management
+                        \hfill Spring 2025} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture 4: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Lecturer: #3 \hfill Scribe: #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+   {\bf Disclaimer}: {\it These notes have not been subjected to the
+   usual scrutiny reserved for formal publications.  The lectures may not be distributed
+   outside this class without the written permission of the Instructor. These notes are meant to accompany in-person lectures and are not meant to replace those.}
+   \vspace*{4mm}
+}
+
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\lecture{1}{Near-field Beam Forming}{Shima Mashhadi}{}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+%\section{Blah-de-blah}
+%
+%Blahty-blah blah.
+%
+%Remember to include figures if the notes have them, or if you think they're generally useful.
+%Ditto with references, in bibtex format, as below.
+%
+%Keep these general principles in mind
+%
+%\url{http://web.cs.ucla.edu/~sherstov/teaching/2012-winter/docs/scribe-instructions.pdf}
+%
+%\ldots
+\section{Beam Focusing}
+During class, we discussed that in the far-field of an array antenna, the best approach is to use multi-user MIMO, which allows us to separate different users based on their directions. However, in the near-field of the array, we can distinguish users based on their locations, which can facilitate the spatial multiplexing of many UEs \cite{B24}.
+
+In the near-field, a transmitting array can be designed with a lens-like quadratic phase profile to focus the signal at a specific focal point.
+
+Besides the focused beam, we introduce two other beam patterns in the near-field: the Bessel beam and the curved beam. In general, due to the wavefront curvature in the near-field, it is possible to design beams that follow any convex trajectory.
+\subsection{Beamwidth}\label{1.1}
+To analyze the beamwidth in the near-field, we consider a uniform planar array (UPA) placed on the x-y plane with $M = N^2$ elements. The location of each element is represented as $(\bar{y}_n,\bar{y}_m)$, where~\cite{B24}:
+\begin{equation}
+    \bar{x}_n = \left(n-\frac{N+1}{2}\right)\Delta, \quad 
+    \bar{y}_m = \left(m-\frac{N+1}{2}\right)\Delta \quad n,m \in \{1,...,N\}
+\end{equation}
+
+We consider a user located at $(0,0,z)$. Therefore, the channel between the $(n,m)$-th antenna element and the user, after applying the Taylor approximation, is given by:
+\begin{equation}
+    h_{n,m}= \frac{\lambda\sqrt{G}}{4\pi z}e^{-j\frac{2\pi}{\lambda}\left(\frac{\bar{x}_n^2}{2z}+\frac{\bar{y}_m^2}{2z}+z\right)} 
+\end{equation}
+Here, $G$ represents the antenna gain, and $\lambda$ is the wavelength.
+
+Thus, the received signal at the user's location can be written as~\cite{B24}:
+\begin{equation}
+    r = \sum_{n=1}^{N}\sum_{m=1}^N h_{n,m}\frac{e^{j\psi_{n,m}}
+    }{\sqrt{M}}s + w
+\end{equation}
+where $w\sim \mathcal{N}(0,\sigma ^2)$ is the the complex noise at the receiver. Thus, the signal-to-noise ratio (SNR) can be formulated as~\cite{B24}:
+\begin{equation}
+    SNR = \frac{p}{\sigma ^2}\frac{\lambda ^2 G}{(4\pi z)^2}\frac{1}{M} \left |\sum_{n=1}^{N}\sum_{m=1}^N 
+    e^{-j\frac{2\pi}{\lambda}\left(\frac{\bar{x}_n^2}{2z}+\frac{\bar{y}_m^2}{2z}+z\right)}e^{j\psi_{n,m}}\right|^2
+\end{equation}
+With this setup, the array gain can be expressed as~\cite{B24}:
+\begin{equation}
+\text{Array Gain} = \frac{1}{M} \left| \sum_{n=1}^{N} \sum_{m=1}^{N} e^{-j \frac{2\pi}{\lambda} \left( \frac{\bar{x}_{n}^2}{2z} + \frac{\bar{y}_{m}^2}{2z} + z \right)} e^{j\psi_{n, m}} \right|^2
+\end{equation}
+
+If we define $\psi_{n,m}=\frac{2\pi}{\lambda}\left( \frac{\bar{x}_{n}^2}{2z} + \frac{\bar{y}_{m}^2}{2z} + z \right)$, then the maximum achievable array gain is $\frac{1}{M}N^4 = M$.
+
+To analyze the beamwidth, we assume the user shifts by $x_t$ along the x-axis, moving to the new position $(x_t,0,z)$. Under this condition, the array gain is modified as:
+\begin{equation}
+    AG = \frac{1}{M} \left| \sum_{n=1}^{N} \sum_{m=1}^{N} e^{-j \frac{2\pi}{\lambda} \left( \frac{(\bar{x}_{n}-x_t)^2}{2z} + \frac{\bar{y}_{m}^2}{2z} + z \right)} e^{j\frac{2\pi}{\lambda}(\frac{\bar{x}_n^2}{2z}+\frac{\bar{y}_m^2}{2z}+z)} \right|^2
+\end{equation}
+Expanding \((\bar{x}_n - x_t)^2\) and simplifying the expression, we obtain:
+\begin{equation}
+    AG = \frac{1}{M} \left| \sum_{n=1}^{N} \sum_{m=1}^{N} e^{-j \frac{2\pi}{\lambda} \left( \frac{x_t^2-2\bar{x}_{n}x_t}{2z}\right)}  \right|^2 = 
+    \frac{1}{M} \left| \sum_{n=1}^{N} \sum_{m=1}^{N} e^{j \frac{2\pi}{\lambda} \left( \frac{2\bar{x}_{n}x_t}{2z}\right)}  \right|^2=
+    \frac{1}{M}N^2 \left| \sum_{n=1}^{N}  e^{j \frac{2\pi}{\lambda} \left( \frac{\bar{x}_{n}x_t}{z}\right)}  \right|^2
+\end{equation}
+Next, we approximate the summation using an integral. To achieve this, we define $\bar{x}_n = (n-\frac{N+1}{2})\Delta$ which indicates that $\bar{x}_n$ varies approximately between $-\frac{N}{2}\Delta$ to $\frac{N}{2}\Delta$. Introducing a new parameter $u \in (-\frac{N}{2},\frac{N}{2})$ we can rewrite the AG as:
+\begin{equation}
+    AG = \left | \int_{-\frac{N}{2}}^{\frac{N}{2}}e^{j \frac{2\pi}{\lambda} \left( \frac{u\Delta x_t}{z}\right)}du\right|^2 = \left | \frac{1}{j\frac{2\pi}{\lambda}\frac{\Delta x_t}{z}}\left (e^{j\frac{2\pi}{\lambda}\frac{N\Delta x_t}{2z}}-e^{-j\frac{2\pi}{\lambda}\frac{N\Delta x_t}{2z}}\right)\right | ^2 = \left | \frac{\sin{(\frac{2\pi}{\lambda}\frac{N\Delta x_t}{2z}})}{\frac{\pi}{\lambda}\frac{\Delta x_t
+    }{z}}\right|^2
+\end{equation}
+Then, the final expression for the beamwidth is given by~\cite{K24}:
+\begin{equation}
+    AG = \left | \frac{N\sin{(\frac{\pi}{\lambda}\frac{N\Delta x_t}{z}})}{\frac{\pi}{\lambda}\frac{N\Delta x_t
+    }{z}}\right |^2 = \left |N sinc\left(\frac{N\Delta x_t}{z\lambda}\right)\right |^2 = M sinc^2{(\frac{N\Delta x_t}{z\lambda})}
+\end{equation}
+ Since \( \text{sinc}^2(0.443) \approx 0.5 \), the 3 dB beamwidth of the UPA is given by:
+ \begin{equation}
+     BW_{3dB} = \frac{0.886\lambda F}{N\Delta}
+ \end{equation}
+where we consider \( z = F \).
+\subsection{Beamdepth}
+For the beam depth analysis, we set the focal point at \( (0,0,F) \) and consider the user shifting along the z-axis to a new position \( (0,0,z) \), where \( z \neq F \). Under this condition, the array gain is given by:
+\begin{equation}
+    AG = \frac{1}{M} \left| \sum_{n=1}^{N} \sum_{m=1}^{N} e^{-j \frac{2\pi}{\lambda} \left( \frac{\bar{x}_{n}^2}{2z} + \frac{\bar{y}_{m}^2}{2z} + z \right)} e^{j\frac{2\pi}{\lambda}(\frac{\bar{x}_n^2}{2F}+\frac{\bar{y}_m^2}{2F}+F)} \right|^2
+\end{equation}
+
+We define the effective distance as:
+\begin{equation}
+    z_{eff} = \left |\frac{1}{F}-\frac{1}{z}\right|^{-1} = \frac{Fz}{|F-z|}
+\end{equation}
+Then, based on \( z_{\text{eff}} \), we can simplify the array gain as follows~\cite{B24}:
+\begin{equation}
+    \approx \frac{1}{M} \left| \sum_{n=1}^{N} \sum_{m=1}^{N} e^{j \frac{2\pi}{\lambda} \left( \frac{\bar{x}_{n}^2}{2z_{eff}} + \frac{\bar{y}_{m}^2}{2z_{eff}} \right)} \right|^2 \approx \frac{1}{M}\left |\sum_{n=1}^{N}e^{j \frac{\pi}{\lambda}\frac{\bar{x}_n^2}{z_{eff}}}\sum_{m=1}{N}e^{j\frac{\pi}{\lambda}\frac{\bar{y}_m^2}{z_{eff}}}\right |^2
+\end{equation}
+Then, similar to Section \ref{1.1}, we approximate the summation using an integral and rewrite the array gain as:
+\begin{align}
+    AG &= \frac{1}{M}\left|\int_{-\frac{N}{2}}^{\frac{N}{2}}e^{j \frac{\pi}{\lambda}\frac{n^2\Delta ^2}{z_{eff}}}dn
+    \int_{-\frac{N}{2}}^{\frac{N}{2}}e^{j \frac{\pi}{\lambda}\frac{m^2\Delta^2 }{z_{eff}}}dm \right|^2 \\
+    & \quad = M\left(\frac{8z_{eff}}{d_F}\right)^2\left(C^2\left(\sqrt{\frac{d_F}{8z_{eff}}}\right)+S^2\left( \sqrt{\frac{d_F}{8z_{eff}}}\right)\right)
+\end{align}
+Where $d_F = \frac{4N^2\Delta ^2}{\lambda}$ represents the Fraunhofer distance of the UPA, and $C(x) = \int^x_0 \cos(\pi t^2/2)dt$ and $S(x) =  \int^x_0 \sin(\pi t^2/2)dt$ denote the Fresnel integrals\cite{}.
+Thus, the array gain takes the form:
+\begin{equation}
+    \frac{\left(C^2(\sqrt{x})+S^2(\sqrt{x})\right)}{x^2}
+\end{equation}
+where $x=\frac{d_F}{8z_{eff}}$. As xx increases from $0$ (when $F=z$) to $1.25$, the array gain decreases from $1$ to $0.5$. Therefore, the $3$dB beam depth ($BD_{3dB}$) can be determined as follows~\cite{B24}:
+
+
+\begin{equation}
+    1.25 = \frac{d_F}{8z_{eff}} = \frac{d_F|F-z|}{Fz} \rightarrow z = \frac{d_FF}{d_F\pm 10F}
+\end{equation}
+
+\begin{equation}
+    BD_{3dB} = \frac{d_FF}{d_F-10F}-\frac{d_FF}{d_F+10F} = \frac{20d_FF^2}{d_F^2-100F^2}
+\end{equation}
+
+Note that to ensure a finite beam depth, the focal distance must satisfy $F \leq \frac{d_F}{10}$.
+
+\section{Bessel Beam}
+As mentioned so far, we studied the beam depth and beam width properties of beam focusing in the near field. However, beam focusing is not the only beam pattern that we can create in the near field. Another possible pattern is the Bessel beam, which can be generated by designing a specific phase-shift vector at the transmitter.
+
+A Bessel beam refers to a specific beam pattern where waves constructively interfere along a line in 2D or a cylinder in 3D. This beam profile is created by applying a radially symmetric linear phase shift at the antenna elements. The phase shift is given by~\cite{H18}:
+
+\[
+\phi_{n,m} = \frac{2\pi}{\lambda}\sqrt{\bar{x}_n^2 +\bar{y}_m^2}\cos{\theta}
+\]
+The resulting beam has an intensity profile characterized by a bright central spot along the z-axis, surrounded by multiple concentric rings. These rings are interference patterns formed by the constructive and destructive interference of plane waves from opposite sides of the central axis. This beam profile follows a zeroth-order Bessel function, which is why it is called a Bessel beam~\cite{K18}.
+
+One key property of the Bessel beam is its self-healing nature. This means that if an object partially obstructs the beam along its main propagation line, the beam can reconstruct itself at a point further along its path, beyond the obstruction~\cite{S23}.
+
+%a given aperture size, the angle of the conical wavefront directly affects the resultant diameter of the central spot, the number of rings, and the maximum propagation distance. 
+
+\section{Curved Beam}
+
+Besides the Bessel beam, another type of beam pattern in the near field is the curved beam. This beam has the unique property of completely bypassing blockages by following a curved trajectory.
+
+An arbitrary curve can be generated from a large input aperture, where the local required phase and subsequent wavefronts are determined using the tangents of the curve extended to the aperture. For example, consider the following trajectory for the beam~\cite{G24}:
+\begin{equation}
+    g(z) = -0.0125(z-1)^2 +0.0025
+\end{equation}
+To create the curved beam described above, we first calculate the tangent line of the curve at each antenna element located at $(x_n,y_m)$. The distance from $(x_n,y_m)$ to the tangent point on the curve provides the phase shift $\psi_{n,m}$.
+
+A key design consideration for these beams is that a greater beam curvature requires both a steeper phase progression across the array aperture and a larger aperture size \cite{S23}.
+\subsection*{References}
+\beginrefs
+    \bibentry{B24} E. Björnson, C. B. Chae, R. W. Heath Jr., T. L. Marzetta, 
+    A. Mezghani, L. Sanguinetti, F. Rusek, M. R. Castellanos, D. Jun, and Ö. T. Demir, 
+    "Towards 6G MIMO: Massive spatial multiplexing, dense arrays, and interplay between 
+    electromagnetics and processing," arXiv preprint arXiv:2401.02844, Jan. 5, 2024.
+
+    \bibentry{S23} A. Singh, V. Petrov, H. Guerboukha, I. V. A. K. Reddy, E. W. Knightly, D. M. Mittleman, and J. M. Jornet, "Wavefront engineering: Realizing efficient terahertz band communications in 6G and beyond," \textit{IEEE Wireless Communications}, 2023.
+
+     \bibentry{K24} A. Kosasih, Ö. T. Demir, and E. Björnson, 
+    "Achieving Beamfocusing via Two Separated Uniform Linear Arrays," 
+    arXiv preprint arXiv:2412.03232, Dec. 4, 2024.
+    \bibentry{H18} D. Headland, Y. Monnai, D. Abbott, C. Fumeaux, 
+    and W. Withayachumnankul, "Tutorial: Terahertz beamforming, from concepts to realizations," 
+    APL Photonics, vol. 3, no. 5, May 1, 2018.
+    
+    \bibentry{G24} H. Guerboukha, B. Zhao, Z. Fang, E. Knightly, 
+    and D. M. Mittleman, "Curving THz beams in the near field: A framework to compute link budgets," 
+    in Proc. 18th European Conference on Antennas and Propagation (EuCAP), Mar. 17, 2024, pp. 1-5, IEEE.
+
+
+\endrefs
+
+\end{document}
+
+
+
+
+
