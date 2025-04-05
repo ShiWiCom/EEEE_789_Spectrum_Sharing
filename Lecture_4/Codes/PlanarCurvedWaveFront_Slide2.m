@@ -1,7 +1,7 @@
 % ######################### Dec 11, 2024
 % ######################### Written by Shima Mashhadi, PhD student at Rochester Institute of Technology, supervised by Professor Alireza Vahid.
 % ######################### EEEE-789 Spectrum Sharing
-% ######################### Implementation of curved and planar wavefront
+% ######################### Implementation of curved and planar wavefronts
 clear; clc;
 % Constants
 antenna_Number =2;
