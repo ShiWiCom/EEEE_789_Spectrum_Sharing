@@ -1,7 +1,7 @@
 % ######################### Apr, 5, 2025
 % ######################### Written by Shima Mashhadi, PhD student at Rochester Institute of Technology, supervised by Professor Alireza Vahid.
 % ######################### EEEE-789 Spectrum Sharing
-% ######################### Farfield beamforming
+% ######################### Farfield beamforming-slide 8
 clear; clc;
 % Constants
 antenna_Number = 50;
@@ -62,70 +62,5 @@ ylabel('z-axis (m)','FontSize', 14);
 
 xlim([-5,5])
 ylim([0,100])
+% plot the antenna aperture
 plot([-antenna_Number*space_Ant_elemets/2,antenna_Number*space_Ant_elemets/2] , [1,1],'-m','LineWidth',5); % Magenta square at (0, 0)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%% Plot the results
-%% Planar WaveFront
-figure(1);
-set(gcf, 'Color', 'w')
-
-% imagesc(x, (z), real(G_results')); % Heatmap
-h = surf(x, z_Planar, real(WaveFront_Planar'), ...
-    'EdgeColor', [0.3 0.3 0.3], ...       % Darker edge for better contrast
-    'FaceAlpha', 0.9);                    % Slight transparency for depth
-
-shading interp                          % Smooth color transitions
-% colormap parula                         % Better color contrast
-lighting phong                          % Add smooth lighting
-camlight headlight                      % Position the light source
-material dull                           % Less shiny surface
-
-xlim([-5,5])
-ylim([1010,1015])
-set(gca, 'YDir', 'normal'); % Ensure correct orientation
-% 
-% colorbar;                  % Add colorbar
-xlabel('x','FontSize', 14);
-ylabel('z','FontSize', 14);
-box on;
-%% Curved WaveFront
-figure(2);
-set(gcf, 'Color', 'w')
-
-% imagesc(x, (z), real(G_results')); % Heatmap
-h = surf(x, z_Curved, real(WaveFront_Curved'), ...
-    'EdgeColor', [0.3 0.3 0.3], ...       % Darker edge for better contrast
-    'FaceAlpha', 0.9);                    % Slight transparency for depth
-
-shading interp                          % Smooth color transitions
-% colormap parula                         % Better color contrast
-lighting phong                          % Add smooth lighting
-camlight headlight                      % Position the light source
-material dull                           % Less shiny surface
-set(h, 'LineWidth', 1.5);
-
-xlim([-5,5])
-ylim([10,15])
-set(gca, 'YDir', 'normal'); % Ensure correct orientation
-xlabel('x','FontSize', 14);
-ylabel('z','FontSize', 14);
-box on;
