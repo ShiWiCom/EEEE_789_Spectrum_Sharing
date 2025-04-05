@@ -1,8 +1,7 @@
 % ######################### Dec 11, 2024
-% ######################### Implementation of the paper "Achieving Beamfocusing via Two Separated Uniform Linear Arrays"
 % ######################### Written by Shima Mashhadi, PhD student at Rochester Institute of Technology, supervised by Professor Alireza Vahid.
-% ######################### Near-field beamfocucing design 
-% ######################### Beamfocusing of 1 ULA
+% ######################### EEEE-789 Spectrum Sharing
+% ######################### Implementation of curved and planar wavefront
 clear; clc;
 % Constants
 antenna_Number =2;
