@@ -1,0 +1,330 @@
+\documentclass[twoside]{article}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{cite,graphicx,algorithm,enumerate}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage[makeroom]{cancel}
+\usepackage[autostyle]{csquotes}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf EEEE789 Spectrum Sharing \& Management
+                        \hfill Spring 2025} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture 1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Lecturer: #3 \hfill Scribe: #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+   {\bf Disclaimer}: {\it These notes have not been subjected to the
+   usual scrutiny reserved for formal publications.  The lectures may not be distributed
+   outside this class without the written permission of the Instructor. These notes are meant to accompany in-person lectures and are not meant to replace those.}
+   \vspace*{4mm}
+}
+
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\lecture{1}{Spectrum Management and 6G spectrum}{Shima Mashhadi}{Sajjad Nassirpour}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+%\section{Blah-de-blah}
+%
+%Blahty-blah blah.
+%
+%Remember to include figures if the notes have them, or if you think they're generally useful.
+%Ditto with references, in bibtex format, as below.
+%
+%Keep these general principles in mind
+%
+%\url{http://web.cs.ucla.edu/~sherstov/teaching/2012-winter/docs/scribe-instructions.pdf}
+%
+%\ldots
+
+\subsection*{Radio Management}
+%\cite[p 4]{M16}
+%\comment{We call the frequency range of the 0 to 300 GHz the radio frequency (RF) which is a part of the elegtromaggnit wave with frequency of the 0 to infinity.  Radio frequency management refer to the reggulatingg the use of the radio spectrum.  radio spectrum is a valuable shared resources, generally refer as a natural resources like water, gas, land.  it has benefit in every day life and all the communication technologies developments like mobile phone wifi satellite radio television is functioned based on the spectrum usage. to support wide variety of the different telecommunication services in around the world, the radio spectrum is managed (being divide between different services in different locations) to mitigate the harmful interference. this process refer as spectrum management.   The management of the frequency is important because the frequency is a natunal resources even of the begining of the white house report they mentioned the RF as the most important national resources and the goal is to continue U.S leadership in spectrum research and development and ensure that all of America can share in the benefits of this resource which show the importance of the RF and optimal managing this resources.As I mentioned the RF is a natural resources like a water an land, and mineral, however it is renwable. It is requires optimal use and if we do not use it at reakl time it is a economic west of the national resource\cite{M16}. The main perpoes of the rado management is to mitigate the harmful interference and maximize the be benefit of using the spectrum worldeide.  All goverments consider RF spectrum as an exclusive property of the state and agreed that there is a need for regulating the spectrum at national, regionel and global level, more clearly define which servise can use which part of the spectrum in which location  to support the wide variety of different telecommunication services.  hharminized the spectrum usage by different nation is important to facilitate the interconnection and balance the power and wealth of using spectrum worldwide. The electromagnetic spectrum is a valued sharedresource \cite{D13}. Considering RF spectrum management as a constructthat structures radio services and, at the same time,distributes wealth and power\cite{S15}.}
+
+We refer to the frequency range of 0 to 300 GHz as the radio frequency (RF). It is part of the electromagnetic wave spectrum, which spans frequencies from 0 to infinity. Radio spectrum is a valuable shared resource and is often considered a natural resource, much like water, gas, or land. It plays a crucial role in daily life and supports the development of communication technologies such as mobile phones, Wi-Fi, satellites, radio, and television~\cite{I18}.
+
+To accommodate the wide variety of telecommunications services used globally, the radio spectrum is divided among different services and locations. This helps mitigate harmful interference and ensure efficient use. The process of organizing and regulating the use of the spectrum is referred to as spectrum management. The primary purpose of radio frequency management is to minimize harmful interference and maximize the benefits of spectrum usage on a global scale. Although RF is a natural resource like water, land, or minerals, it is renewable. Therefore, it requires careful and efficient usage. If RF is not utilized in real time, it results in an economic waste of a valuable national resource \cite{M16}. 
+
+Governments worldwide regard the RF spectrum as the exclusive property of the state. 
+They recognize the necessity of regulating spectrum usage at national, regional, and global levels. These regulations clarify which services can use specific parts of the spectrum in designated locations, enabling controlling the interference telecommunications services to function effectively. Harmonizing spectrum usage between nations is also critical to facilitate interconnectivity and balance the power and wealth derived from spectrum usage worldwide\cite{S15}.
+
+\subsection*{International Telecommunication Union (ITU)}
+As I mentioned, we need to regulate the spectrum at a global level to manage interference between neighboring countries through cross-border frequency coordination and worldwide. Based on frequency usage, signals can even be detected up to 100 miles away due to the spherical reflection of the signal. 
+
+The International Telecommunication Union (ITU) is the global organization responsible for organizing spectrum usage around the world. The following information on the ITU and its responsibilities is based on its official website~\cite{ITU}. In general, the ITU is responsible for everything related to information and communication technologies (ICTs). Although its work extends beyond spectrum management, this can be considered one of its main roles since most communication technologies rely heavily on spectrum usage.  %The ITU has described the spectrum as a "road" or "highway," but instead of transporting vehicles, it carries information and data.
+\begin{itemize}
+   \item \textbf{Who They are:}
+    ITU is the United Nations specialized agency for information and communication technologies (ICTs). The Organization is made up of a membership of 194 Member States and more than 1000 companies, universities and international and regional organizations. 
+    ITU is the oldest agency in the UN family – connecting the world since the dawn of the telegraph in 1865.
+    \item\textbf{What they do:}
+    They allocate global radio spectrum and satellite orbits, develop the technical standards that ensure networks and technologies connect seamlessly.
+
+    This definition refer to the three main branch of the ITU:
+    \begin{itemize}
+        \item ITU Radiocommunication for allocating global radio spectrum.
+        \item ITU Stanrdization for developing the technical standards.
+        \item ITU Development for ensuring seamlessly connection worldwide.
+    \end{itemize}
+    \item\textbf{Why they matter:}
+    Networks and devices everywhere rely on ITU's work.
+    \item\textbf{Formation} 
+    The ITU was established in 1865 by the name of the International Telegraph Union.
+    In 1934, it adopted the current name.
+    In January 1949, The ITU became a specialized agency of the United Nations.
+    \item\textbf{Headquarters}
+    The headquarters of the ITU is situated in Geneva, Switzerland.
+    \item\textbf{Members}
+    The ITU has 193 member states, including all the member states of the United Nations except the Republic of Palau.
+\end{itemize}
+
+The work of the ITU structured in three main sector Radiocommunication, Standardization and Development. for each sector I will cover their main resposiblity and work. all sector helds a specific conference every 4 or 3 years to discuss their plan for the next duration, and contain some study group to carry the technical works. 
+
+\subsubsection*{ITU-D Telecommunication Development}
+Based on the ITU-D official website~\cite{ITU-D}, they define themself as follow:
+
+"The Telecommunication Development Sector (ITU-D) works to close the digital divide and drive digital transformation to leverage the power of ICTs for economic prosperity, job creation, digital skills development, gender equality, diversity, a sustainable and circular economy, and for saving lives. Its work prioritizes those most in need- from people living in the world’s Least Developed Countries to marginalized communities everywhere."
+
+We can see this sector mainly on responsible for the equal access to the ICT worldwide. Therefore their main focus is on the developing countries. they work consist od providing the policies, regulations, training program even financial strategies in the developing countries~\cite{Wiki}. For example , ITU-D hold a lot of workshops and training events in developing countries such as Dijbouti Bahrain Congoand, etc. They work on gender equality as well which I personally interested about. for example they had specific events on empowering young woman in STEM and cybersecurity in 2024. you can read more about their work here: \href{https://www.itu.int/itu-d/sites/year-in-review-2024/}{Year in Review 2024}. 
+
+The ITU-D hosts the World Telecommunication Development Conference to establish the work of the ITU-D for the next four years and to discuss projects, programs, and topics related to the development sector~cite{ITU-D}.%\url{https://www.gp-digital.org/the-itu-a-brief-explainer/}. 
+The next WTDC will take place in Baku, Republic of Azerbaijan from 17 to 28 November 2025.
+
+the ITU-D study groups is to share experiences, present ideas, exchange views, and achieve consensus on appropriate strategies to address ICT priorities between members. ITU-D has two study group, SG1 Enabling environment for meaningful connectivity and SG2 Digital Transformation.
+
+
+
+\subsubsection*{ITU-T Telecommunication Standardization}
+
+ ITU-T is responsible for coordinating international standards for telecommunication and Information Communication Technology (ICT), Known as \textit{ITU-Recommendations}, such as format of the public key certificates, video compression standards and machine learning architecture for future networks.
+ ITU-Recommendations are essential to ensure the ICT network devices enable global communication~\cite{ITU-T}. 
+
+ The ITU-D host the World Telecommunication Standardization Assembly every four years and defines the next period of study for Standardization sector. WTSA-24 took place from 15 to 24 October 2024 in New Delhi, India.  It defines the general policy for the sector, establishes the study groups, and approves their expected work program for the next four-year period.
+
+    The technical work and the development of recommendations for the various fields of international telecommunications of ITU-T are managed by Study Groups (SGs), which are created by the WTSA. Currently there are 11 SGs.
+
+\subsubsection*{ITU-R Radio communication}
+
+    ITU-R defines and manages the international regulatory framework for the use of spectrum and satellite orbits by radiocommunication services and develop standards for radiocommunication systems, known as ITU-R Recommendations.
+    Their primary objective is to ensure interference free operations of radiocommunication systems. 
+    %Ensure efficient, equitable and economical use of the radio frequency spectrum.
+
+    for using a part of the spectrum in a specific rigion, each member country submits its proposal of spectrum allocation to ITU. After deliberate discussions on the received proposal in the meeting of all country members, decision are taken for opening of bands.
+    
+    Like other sectors the technical works is managed by ITU-R Study Groups (SGs). The ITU-R Study Groups develop the technical bases for decisions taken at World Radiocommunication Conferences and develop global standards (Recommendations), Reports and Handbooks on radiocommunication matters. Study Groups work on topics such as efficient management and use of the spectrum/orbit resource, radio systems characteristics and performance, spectrum monitoring and emergency radiocommunications for public protection and disaster relief. There are currently 6 SGs~\cite{ITU-R}. 
+    
+\subsubsection*{World Radiocommunication Conference (WRC)}
+The World Radiocommunication Conference (WRC) is one of the most significant events in radio spectrum management and allocation globally. Organized by ITU-R, the WRC is typically held every 3 to 4 years in Geneva. It plays a crucial role in regulating the use of the radio-frequency spectrum across different regions of the world. During the conference, frequency bands are allocated to various applications, including mobile cellular communication, which is referred to as International Mobile Telecommunications (IMT) by the ITU. 
+
+The outcomes and decisions made at the WRC are published in the Radio Regulations (RR) documents, which contain the full text of the regulations adopted. The WRC marks the beginning of the journey for introducing new services in the Information and Communication Technology (ICT) sector. Notably, for each new cellular generation, the work starts at the WRC with discussions and allocations of the new frequency bands, highlighting the event’s importance in shaping the future of mobile communication.
+    
+\subsubsection*{Master International Frequency Register (MIFR)}
+    The Master International Frequency Register (MIFR) is a comprehensive database managed by the International Telecommunication Union (ITU) that records frequency assignments for both satellite and terrestrial communication systems worldwide. This register serves as the final step in the frequency coordination process, ensuring that frequency assignments are internationally recognized and protected from interference. When a frequency assignment is recorded in the MIFR, it signifies that other administrations must consider this assignment to prevent harmful interference when making their own frequency allocations. The MIFR is regularly updated and published in the BR International Frequency Information Circular (BR IFIC), which includes notifications of new frequency assignments, modifications, and cancellations. This publication is essential for maintaining an organized and interference-free global communication environment\cite{ITU-R,U19}.%\url{https://www.itu.int/en/ITU-R/terrestrial/broadcast/Pages/MIFR.aspx, https://ustti.org/wp-content/uploads/2019/11/Day-1-4_RR-and-allocations-table_20190903.pdf}.  
+\subsubsection*{ITU Regions}
+    Allocation of the frequency spectrum is made on a regional basis~\cite{D13}.
+
+   The ITU organizes the world into three regions for managing the allocation of radio frequencies and each region has its own set of frequency allocation. 
+   Region 1 includes Europe, the Middle East, and Africa. Region 2 covers the Americas, both North and South. Region 3 is made up of Asia and the Pacific. These regions help ensure that frequency usage is coordinated in a way that supports global communication while addressing the unique needs and priorities of each area~\cite{W25}.%\url{https://en.wikipedia.org/wiki/ITU_Region}.
+
+\subsubsection*{U.S. Spectrum Management}
+This part is important in order to understand how the spectrum is allocated to different services in USA. This contains an introduction to the dual regulatory authority over the radio spectrum by National Telecommunications and Information Administration (NTIA) and Federal Communications Commission (FCC), established by the communication act of 1934.
+
+In 1906 when speech and music were first broadcast using radio, the first international radio conference was held to address the need for managing of radio spectrum usage, particularly between 500 and 1500 kHz. In the US, interference from unregulated transmissions led to the Radio Act of 1912, which means the transmitters need to register their spectrum usage but there was no power on their frequencies, operating times, and station output powers, so it did not work well. 
+In 1922, U.S. government spectrum users established the Interdepartment Radio Advisory Committee (IRAC) to better coordinate their use of radio frequencies. Coordinating the government's spectrum usage was easier than managing public use, as the IRAC brought together all federal users.  They soon recognized that collaboration not only benefited the government's spectrum usage but also helped improve coordination for public use.
+The IRAC still exists today and is led by the NTIA. It helps federal agencies coordinate their use of the radio spectrum and works with the FCC on issues affecting both federal and non-federal spectrum users. The main role of IRAC is to act in the best interest of the entire United States. 
+
+The FCC was created in 1934 as an independent federal agency reporting to Congress. It was tasked with regulating interstate and international communications across radio, television, wire, satellite, and cable. The FCC has authority over radio communications in all 50 states, U.S. territories, the District of Columbia, and U.S. possessions.
+
+%The President has the authority to manage the federal government's use of radio spectrum, assigning frequencies for all federally owned or operated radio stations. This also includes assigning frequencies to foreign embassies in Washington, D.C., and regulating the features and allowed uses of government radio equipment. this authrity is delegated by the president to the NTIA administrator who serves as the president's principal adviser an telecommunications and information policy. In this role the NTIA frequently works with othr executive branch agencies to develop and present the administration's positions, both domestically and internationally. NTIA is also responsible for the performing telecommunications, research and engineering, including resolving technical communications issues for the federal govermentd and administering infrastructure and public telecommunications facilities garnts.%% talk about ITS For doing reseach on radio regulotiry 
+
+The President has the authority to control how the federal government uses the radio spectrum, deciding which frequencies can be used by federally owned or operated radio stations. This responsibility also includes assigning frequencies to foreign embassies in Washington, D.C., and setting rules about government radio equipment and its usage. This authority is given to the NTIA (National Telecommunications and Information Administration) administrator, who advises the President on telecommunications and information policy. The NTIA collaborates with other government agencies to shape and share the administration's policies at both national and international levels. It is also responsible for telecommunications research, solving technical communication problems for the federal government, and managing grants for public telecommunications infrastructure and facilities.
+
+
+The NTIA and FCC have different but complementary rulebooks and advisory committees. NTIA’s spectrum management rules are published under name of the "Redbook," for its red cover. While, the FCC’s rules are governed by the Code of Federal Regulations (CFR).
+As mentioned above, the radio spectrum is managed based on a dual organizational structure. The NTIA manages how the Federal Government uses the spectrum, while the FCC is in charge of all other uses. However, the Act does not assign specific frequency bands only for Federal or non-Federal use. Instead, all such decisions come from agreements between the NTIA and the FCC. This means there are no fixed "Federal" or "non-Federal" bands~\cite{N5,FC25,N20}.
+
+%The FCC, which is an independent regulatory agency, administers spectrum for non-Federal use (i.e., state, local government, commercial, private internal business, and personal use) and the NTIA, which is an operating unit of the Department of Commerce, administers spectrum for Federal use (e.g., use by the Army, the FAA, and the FBI). 
+
+%As shown above, the use of the electromagnetic spectrum in the United States is managed using a dual organizational structure; NTIA manages the Federal Government's use of the spectrum while the FCC manages all other uses. However, the Act does not mandate specific allocations of bands for exclusive Federal or non-federal use; all such allocations stem from agreements between NTIA and the FCC. In other words, there are no statutory "Federal" or "non-federal" bands.
+\subsubsection*{Licenced and unlicensed band}
+Regulators decide which type of license applies to a spectrum band by considering factors such as band availability, usage, and the risk of interference. Generally, spectrum is authorized through one of the following mechanisms: licensed or unlicensed bands~\cite{N22}.%\url{https://www.ntia.gov/sites/default/files/publications/ntia-fcc-spectrum_mou-8.2022.pdf}.
+In the USA, the Federal Communications Commission (FCC) is the government agency responsible for regulating and licensing the use of the radio spectrum. The FCC determines whether a frequency band is licensed or unlicensed based on its intended use and the potential for interference with other services.
+
+The main difference between licensed and unlicensed spectrum is who can use them. Licensed spectrum is reserved for specific companies or users who pay a fee for exclusive rights to transmit within that band. These frequencies are often used for services like cellular networks or radio stations. Because only a few users are allowed in a particular band, it’s well-managed, providing better reliability, performance, and protection. 
+On the other hand, unlicensed spectrum is open for anyone to use without paying for a license. However, the Federal Communications Commission (FCC) still sets rules, such as maximum power levels, for these bands to ensure they don’t cause interference. Unlicensed spectrum allows for quicker product development and innovation since developers don’t need to apply for permission, making it a cost-effective option for new technologies and services~\cite{I25}.%\url{https://iotmktg.com/understanding-wireless-technologies-licensed-vs-unlicensed-spectrum/}.
+\subsubsection*{National Table of Frequency Allocations (NTFA)}
+
+The National Frequency Allocation Table (NFAT) shows how different frequency bands are assigned for various radio services. It outlines the rules for allocating frequencies and may be updated if there are changes at the national level, changes made by the ITU during the World Radiocommunication Conference (WRC), or other national decisions.
+
+The Radio Regulations, which govern frequency use, are updated every four years at the WRC, and national tables should be updated within the same period to keep them current.
+
+NTFAs are crucial for managing spectrum within a country and should be regularly updated to match the latest global regulations. However, some countries face challenges in updating their NTFAs, such as limited awareness of their importance, lack of staff to handle updates, insufficient access to spectrum management tools, and low awareness of the Radio Regulations.
+
+Recently, ITU held workshops to help address these challenges and provide training to improve the update process\cite{IP24}.
+\subsubsection*{National Frequency Allocation Chart (NFAC)}
+The best way to understand spectrum allocation at a glance is through the National Frequency Allocation Chart (NFAC), produced by the NTIA. This chart visually summarizes the information from the NFAT. The most recent version of the NFAC is from January 2016 and can be downloaded here~\cite{N16}.
+
+The NFAC divides the radio spectrum into different frequency bands, ranging from a few kHz to THz. The chart includes three main categories of information\cite{F25}:
+
+\textbf{Radio Services:} The chart shows the frequency bands allocated to various services, each represented by a specific color. For example, the yellow segments on the chart represent radio services allocated for radio astronomy.
+
+\textbf{Activity Code:} Each frequency band is marked with an activity code indicating whether the allocation is for government use, non-government use, or shared use. The activity code is displayed with colored bands below the allocation: red for government use, green for non-government use, and black for shared usage.
+
+\textbf{Allocation Usage:} The chart indicates whether the spectrum usage is primary or secondary. Primary usage is written with all capital letters, while secondary usage has only the first letter capitalized. Primary allocations are protected from harmful interference from shared services, while secondary allocations do not have this protection and may be subject to interference from primary services.
+
+\subsection{The need for 6G: Network Capacity Growth}
+Now that we have an understanding of how frequency management and allocation work at the global, regional, and national levels, we can move on to reviewing the frequency bands allocated for 6G. First, I will explain why there is a need for a new generation of technology and what exactly will be considered 6G. Following that, I will discuss the candidate frequency bands for 6G, as identified during the WRC-23.
+
+
+We need 6G because of the increasing demand for network capacity and the emergence of new applications that require more data. Network traffic has been growing steadily, with the amount of data consumed per month increasing year by year. This growth is driven by the use of more devices, more often, and by new services that continually appear, demanding higher data rates. 
+
+While 4G and 3G networks handled much of the data growth in the past, 5G has taken over and successfully supported most of the capacity growth. However, as technology reaches its limits in managing traffic, 6G will be necessary to meet future demands.
+
+Long-term increases in spectrum allocation, both terrestrial and non-terrestrial, are expected due to two main factors: 1) the continued growth of existing use cases, and 2) the creation of novel use cases enabled by next-generation technologies like 6G. For example, in North America, the monthly data traffic per smartphone grew by 54\% from 2021 to 2022, and is projected to triple by 2028. Overall mobile traffic increased by 46\% in the same period and is expected to continue growing rapidly, necessitating the development of 6G to support these needs~\cite{E24,F23}.
+
+There are three key players in the development of 6G. First, the ITU (International Telecommunication Union) sets the requirements for what will be considered 6G. They monitor stakeholders who might use this technology in the future to understand the needs and expectations for 6G applications.
+
+Second, 3GPP (3rd Generation Partnership Project) is responsible for creating the specifications for the technology. Originally formed to develop global standards for 3G, 3GPP has continued this role for 4G and 5G, and will do the same for 6G.
+
+Lastly, the development of the various technology components for 6G is a collaborative effort between the global research community, including both companies and academia. These contributions will form the technological foundation of 6G, which will then be specified and standardized as part of its development\cite{E24S}.
+
+
+
+
+
+
+
+\subsection*{References}
+\beginrefs
+    \bibentry{I18} International Telecommunication Union (ITU), \href{https://www.gp-digital.org/wp-content/uploads/2018/11/ITU_Explainers_spectrum.pdf}{“Spectrum Management: The Radio Spectrum”}, 2018.
+
+    \bibentry{M16} H. Mazar,  Radio Spectrum Management: Policies, Regulations and Techniques , John Wiley \& Sons, 2016.
+
+    \bibentry{D13} D. R. DeBoer, S. L. Cruz-Pol, M. M. Davis, T. Gaier, P. Feldman, J. Judge, K. I. Kellermann, D. G. Long, L. Magnani, D. S. McKague,  et al. , “Radio Frequencies: Policy and Management,”  IEEE Trans. Geosci. Remote Sens. , vol. 51, no. 10, pp. 4918–4927, 2013.
+
+    \bibentry{S15} R. Struzak, T. Tjelta, and J. P. Borrego, “On Radio-Frequency Spectrum Management,”  URSI Radio Science Bulletin , no. 354, pp. 11–35, 2015.
+
+    \bibentry{ITU} International Telecommunication Union (ITU), \href{https://www.itu.int/en/about/Pages/default.aspx}{“About ITU – Who We Are”}, 2025.
+
+    \bibentry{ITU-D} International Telecommunication Union (ITU), \href{https://www.itu.int/en/ITU-D/Pages/About.aspx}{“ITU-D About Page”}, 2025.
+
+    \bibentry{Wiki} Wikipedia, \href{https://en.wikipedia.org/wiki/ITU-D}{“ITU-D”}, 2025.
+
+    \bibentry{ITU-R} International Telecommunication Union Radiocommunication Sector (ITU-R), \href{https://www.itu.int/en/ITU-R/Pages/default.aspx}{“ITU Radiocommunication Sector – Official Website”}, 2025.
+
+    \bibentry{U19} USTTI, \href{https://ustti.org/wp-content/uploads/2019/11/Day-1-4_RR-and-allocations-table_20190903.pdf}{“Radio Regulations and Allocations Table Overview”}, 2019.
+
+    \bibentry{W25} Wikipedia, \href{https://en.wikipedia.org/wiki/ITU_Region}{“ITU Region – Wikipedia”}, 2025.
+
+    \bibentry{N25} National Telecommunications and Information Administration (NTIA), \href{https://www.ntia.gov/book-page/who-regulates-spectrum}{“Who Regulates Spectrum”}, 2025.
+
+    \bibentry{FC25} Federal Communications Commission (FCC), \href{https://www.fcc.gov/engineering-technology/policy-and-rules-division/general/radio-spectrum-allocation}{“Radio Spectrum Allocation Overview”}, 2025.
+
+    \bibentry{IP24} ITU, \href{https://www.itu.int/hub/2024/06/itu-helps-countries-achieve-robust-radio-frequency-planning/}{“ITU Helps Countries Achieve Robust Radio Frequency Planning”}, 2024.
+
+    \bibentry{E24} Ericsson, \href{https://www.ericsson.com/4adb7e/assets/local/reports-papers/mobility-report/documents/2024/ericsson-mobility-report-november-2024.pdf}{ Ericsson Mobility Report, November 2024 }.
+
+    \bibentry{F23} FCC, \href{https://www.fcc.gov/sites/default/files/Consolidated_6G_Paper_FCCTAC23_Final_for_Web.pdf}{“Consolidated 6G Paper”}, 2023.
+
+    \bibentry{ES24} Ericsson, \href{https://www.ericsson.com/en/blog/2024/3/6g-standardization-timeline-and-technology-principles}{“6G Standardization Timeline and Technology Principles”}, Blog post, 2024.
+
+    \bibentry{F25} PDH Online, \href{https://pdhonline.com/courses/e411/e411content.pdf}{“U.S. Frequency Allocation Chart”}, 2025.
+
+    \bibentry{N20} NSMA, \href{https://www.youtube.com/watch?v=t9kZ_U5Dvy4}{“NSMA Webinar: Spectrum Management Principles – What’s with the Mid-bands”}, YouTube, Sep. 1, 2020.
+
+
+    \bibentry{N16} National Telecommunications and Information Administration (NTIA),\href{https://www.ntia.gov/page/united-states-frequency-allocation-chart}{“United States Frequency Allocation Chart”}, 2016.
+
+    \bibentry{N22} NTIA and FCC, \href{https://www.ntia.gov/sites/default/files/publications/ntia-fcc-spectrum_mou-8.2022.pdf}{“NTIA-FCC Memorandum of Understanding on Spectrum Coordination”}, Aug. 2022.
+
+    \bibentry{I25} IoT Marketing, \href{https://iotmktg.com/understanding-wireless-technologies-licensed-vs-unlicensed-spectrum/}{“Understanding Wireless Technologies: Licensed vs Unlicensed Spectrum”}, 2025.
+
+
+\endrefs
+
+
+
+\end{document}
+
+
+
+
+
