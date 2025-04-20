@@ -1,0 +1,356 @@
+\documentclass[twoside]{article}
+\usepackage{hyperref}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{cite,graphicx,algorithm,enumerate}
+\usepackage{amssymb}
+\usepackage[makeroom]{cancel}
+\usepackage[autostyle]{csquotes}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf EEEE789 Spectrum Sharing \& Management
+                        \hfill Spring 2025} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture 2: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Lecturer: #3 \hfill Scribe: #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+   {\bf Disclaimer}: {\it These notes have not been subjected to the
+   usual scrutiny reserved for formal publications.  The lectures may not be distributed
+   outside this class without the written permission of the Instructor. These notes are meant to accompany in-person lectures and are not meant to replace those.}
+   \vspace*{4mm}
+}
+
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\lecture{1}{FR3 Propagation and Coexistence}{Shima Mashhadi}{}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+%\section{Blah-de-blah}
+%
+%Blahty-blah blah.
+%
+%Remember to include figures if the notes have them, or if you think they're generally useful.
+%Ditto with references, in bibtex format, as below.
+%
+%Keep these general principles in mind
+%
+%\url{http://web.cs.ucla.edu/~sherstov/teaching/2012-winter/docs/scribe-instructions.pdf}
+%
+%\ldots
+\subsection{The pathway in 6G Development}
+
+Over the past 5-6 years, both academia and industry have engaged in intense research to explore enabling technologies for 6G. This research focuses on new features that can be added to 5G to enhance its performance and meet the requirements of 6G. Now, as this research phase comes to a close, the focus is shifting toward integrating these technologies into a deployable 6G system, with expectations for commercial use by 2030.
+
+The International Telecommunication Union (ITU) is playing a crucial role in shaping 6G's future. In December 2023, they held the World Radio Communication Conference, where they discussed which frequency bands, currently unused by 5G, could be utilized for 6G. The ITU is also working on defining the performance requirements for 6G, under the name IMT-2030 (International Mobile Telecommunications), which will set the standards for cellular communications.
+
+By the end of 2025, the ITU will finalize the actual requirements for 6G technology. Then, between 2027 and 2028, various organizations will have the opportunity to submit technical proposals, which will be evaluated and eventually confirmed as the foundation of 6G. Any qualified standard organizations could theoretically design the next generation mobile system, but it is highly expected that 3GPP will lead the standardization of 6G. 3GPP's extensive experience in designing 3G, 4G, and 5G, along with strong industry backing and a global scale, makes it well-positioned to ensure a harmonized approach.
+
+Additionally, in 2027, another World Radio Communication Conference will take place, which will provide a final opportunity to decide on the frequency bands to be used for 6G. In 2023, some potential bands were identified, and in 2027, the decision on which ones will be officially adopted will be made. During this period, there will also be an analysis of the potential consequences of using specific bands, including the challenges of coexistence with other wireless technologies. This process will ensure that 6G can operate effectively while minimizing interference with existing systems.
+
+In the past year, 3GPP has begun working on Release 19, which is the first release to focus on 6G technologies. 3GPP creates different releases of cellular technology every 1 to 2 years, and Release 19 marks the beginning of their work on 6G. Following this, they will continue developing 6G technologies in Release 20 and Release 21, which will pave the way for the actual proposal to be sent to the ITU towards the end of 2028.
+
+The process within 3GPP starts with what's called study items. These are initial explorations into different enabling technologies and proposed changes. At this stage, the goal is to assess whether there's enough interest from the industry to justify deeper exploration into specific areas. If the industry shows interest, 3GPP creates work items, which are detailed investigations into the components that need to be standardized to include them in future technology. Afterward, the work items evolve into detailed technical specifications that ensure interoperability across devices and telecommunications infrastructure.
+
+Release 21 will mark the beginning of 6G development. However, 3GPP will continue to release new versions, enhancing the technology over time. Just as 5G today is not the same as the version initially deployed, 6G will also see continuous evolution through future releases. These enhancements will occur over the next decade, continuously refining and adding new features to the technology\cite{E24S,E22,ES24,Y24}.
+
+\subsection{IMT-2023 Requirements: Usage scenarios}
+The ITU has created IMT-2030 to define the requirements for 6G. As part of this, we will study the usage scenarios and capabilities outlined for 6G. These will include enhancing existing applications and enabling new ones.
+
+6G aims to extend and enhance the capabilities of 5G (IMT-2020) and unlock new possibilities in fields like immersive experiences, IoT, and AI. Building on the foundation of 5G, 6G will enhance existing services and introduce new capabilities that go beyond what 5G can offer.
+
+One key evolution is the transition from Enhanced Mobile Broadband (eMBB) to immersive communication, which includes virtual reality (VR) and augmented reality (AR) for a more engaging user experience. Another shift is from Massive Machine Type Communication (mMTC) to Massive Communication, enabling even larger scale deployments of IoT networks. Ultra-Reliable and Low-Latency Communication (URLLC) will evolve into Hyper-Reliable and Low-Latency Communication (HRLLC), offering even greater reliability and reduced latency, which are critical for applications such as remote surgery and autonomous driving\cite{I23,S24}.
+
+IMT-2030 introduces new scenarios that aim to create a more connected, intelligent, and responsive technological ecosystem. These include\cite{I23}:
+
+\textbf{Ubiquitous Connectivity:} Ensuring high-quality internet access everywhere, including remote and underserved areas, helping to bridge the digital divide.
+
+\textbf{AI and Communication:} Integrating artificial intelligence into communication networks to enhance network management, optimize performance, and personalize user experiences.
+
+\textbf{Integrated Sensing and Communication:} Using the communication infrastructure for environmental sensing, enabling smarter applications like smart cities and autonomous vehicles.
+
+\subsection{IMT-2023 Requirements: Capabilities}
+The capabilities for 6G are categorized into two main groups: enhanced capabilities compared to 5G and new capabilities. A brief definition of 6G capabilities is as follow:
+
+Enhanced Capabilities from IMT-2020 (5G)\cite{I23,Y24}:
+
+\textbf{Security and Resilience:} Ensuring robust security measures that maintain network integrity even under adverse conditions.
+
+\textbf{Reliability:} Offering extremely low error rates (from \(1x10^-5\) to \(1x10^-7\)), ensuring dependable connections.
+
+\textbf{Latency}: Reducing latency to 0.1 to 1 millisecond, which supports ultra-responsive applications like autonomous vehicles and remote surgeries.
+
+\textbf{Mobility}: Supporting device speeds from 500 to 1,000 km/h, ensuring reliable connections for fast-moving vehicles like high-speed trains.
+
+\textbf{Connection Density}: Handling between \(10^6\) and \(10^8\) devices per square kilometer, essential for urban and industrial environments.
+
+\textbf{Area Traffic Capacity}: Managing high traffic throughput per area to support numerous simultaneous users.
+
+\textbf{Peak Data Rate, User-Experienced Data Rate, and Spectrum Efficiency}: Delivering high-speed data transmission and improved network efficiency, far surpassing current 5G capabilities.
+
+New Capabilities Unique to IMT-2030 (6G)\cite{I23,Y24}:
+
+\textbf{Coverage:} Ensuring ubiquitous network access, extending service to more geographic areas with high reliability.
+
+\textbf{Sensing Capabilities:} Leveraging networks for environmental sensing, object detection, and applications contributing to smart cities and automation.
+
+\textbf{AI Integration:} Embedding AI within network operations for predictive maintenance, traffic management, and personalized user experiences.
+
+\textbf{Sustainability:} Focusing on environmentally friendly technologies that reduce energy consumption and minimize the carbon footprint of network operations.
+
+\textbf{Interoperability:} Guaranteeing that new technologies work seamlessly with existing systems and across different platforms.
+
+\textbf{Positioning:} Providing highly accurate location tracking (within 1 to 10 cm), revolutionizing industries such as logistics, manufacturing, and personal mobility.
+
+These enhancements and new capabilities aim to take digital communication to the next level, supporting not only current needs but also paving the way for innovative applications and a more interconnected, sustainable future.
+
+\subsection{6G spectrum}
+Where is the spectrum range that 6G will operate. thsi is very important in order to define and measure the 6G capabilities and required study domain for implementing 6G in the new bands. 
+
+Before diving into the specific frequencies allocated for 6G, let me briefly introduce the three frequency ranges (FR) considered by 3GPP. First, Frequency Range 1 (FR1) covers frequencies from 410 MHz to 7.125 GHz, containing both low and midbands. The second range, Frequency Range 3 (FR3), spans frequencies from 7.125 GHz to 24.25 GHz, also known as the upper-midband. Lastly, Frequency Range 2 (FR2), or the high band, covers frequencies from 24.25 GHz to 71.0 GHz. 
+
+First, let's look at the frequency bands used by previous generations (2G to 5G). The ITU, responsible for harmonizing global spectrum usage, divides the world into three regions and allocates different frequency bands for cellular communication in each region. Traditional cellular technologies (2G, 3G, 4G) typically operate within the 600 MHz to 2.5 GHz range. For 5G, the ITU established two frequency ranges: FR1(2.5-7 GHz) and FR2(24-71 GHz). However, mmWave bands are prone to issues like signal blockage, resulting in intermittent connectivity, which needs dense small-cell deployments. This limitation led mobile network operators in South Korea to discontinue their commercial mmWave networks in 2023. While researchers are looking into even higher frequency bands, such as terahertz (THz) and sub-THz, these will likely face the same challenges as mmWave. Traditionally, shifts to newer technologies have been driven by the availability of wider bandwidths at higher carrier frequencies, as more spectrum leads to higher data rates. 
+
+However, based on 5G experience, moving to mmWave is not a feasible solution for meeting 6G network requirements. we typical have better coverage in the lower frequency where the signal propogates further. however higher frequencies we get better speed and better precision in sensing and localization. Therefore there is a trade of between low frequency and high-frequency. the upper-midband in the range of 7.1GHz to 24 GHz is the middle of lower frequency range and high frequency range can provide a good balance between coverage and user rates that are comparable to mmWave bands. based on the ITU dessition during the WRC-2023, it seem the 6G will mostly operate at FR3 or upper-midband which called the golden band for 6G operation.    
+The ITU identified three candidate bands for 6G as follow\cite{B24}: 
+
+\textbf{4.4-4.8 GHz (Regions 1 and 3):} This lower frequency band is aimed at providing broad coverage and supporting high mobility in suburban and rural areas, as requested by industry stakeholders.
+
+\textbf{7.75-8.4 GHz (Region 1) and 7.125-8.4 GHz (Regions 2 and 3):} This mid-band frequency is designed for use in both outdoor and indoor urban and suburban areas, providing high data rates and moderate mobility.
+
+\textbf{14.8-15.35 GHz (All ITU regions):} This higher frequency band is meant for dense urban areas, focusing on massive connectivity and high data rates, with relatively low user mobility.
+
+These bands fall between the two 5G bands, providing a new spectrum range that bridges the gap between current 5G frequencies. 
+ 
+
+The new frequency bands for 6G provide bandwidths of 400 MHz, 650-1275 MHz, and 550 MHz, adding up to a total of 1600 to 2225 MHz of spectrum, depending on the region. This is in contrast to the current 5G mid-band spectrum, which includes 500 MHz in the 3.3-3.8 GHz range, and an additional 700 MHz in the 6.4-7.1 GHz range, assigned at WRC-23. As a result, the first 6G base stations will offer a similar amount of new spectrum to what 5G networks will have aggregated by 2029, indicating that spectrum availability alone will not be the defining factor between 6G and 5G. The ITU’s vision for 6G aims for a peak user data rate of 200 Gbps, a guaranteed rate of 500 Mbps, and an area traffic capacity of 50 Mb/s/m². To reach the desired peak rate with 1.2 GHz of new spectrum, a spectral efficiency of 166 b/s/Hz is necessary, which will require significant advancements in MIMO (Multiple Input, Multiple Output) technology\cite{Sa24,B24,Y25}.
+
+\subsection{Channel model}
+One of the key advantages of the upper mid-band is its flexible propagation characteristics, offering a balance between coverage and capacity. This band includes lower frequencies with wider coverage and higher frequencies with greater bandwidth. Such diversity allows wideband mobile devices to dynamically select the optimal frequency, choosing lower frequencies for better coverage or higher frequencies when high capacity is available.
+
+To evaluate coverage across this band, ray-tracing simulations are typically used in dense urban environments. For example,~\cite{K24} investigates coverage at four upper mid-band frequencies (6, 12, 18, and 24~GHz) in Herald Square, New York City, over a $1120 \times 510~\mathrm{m}^2$ area. The study considers a single gNB transmitting at 33~dB, with antenna array size scaled by frequency to maintain a fixed aperture.
+As shown in Figure~\ref{fig:Coverage1}, coverage decreases with increasing frequency from 6 to 24~GHz. However, by scaling the antenna array to maintain the same aperture size, the path loss at higher frequencies can match that of lower ones. The main limitation at higher frequencies is reduced performance in non-line-of-sight (NLoS) scenarios~\cite{K24}.
+
+Another study considers a dense urban area in Tokyo. The simulation setup and the map of the area are shown in Figures~\ref{fig:Setup} and \ref{fig:map}. Figures~\ref{fig:Coverage2a} and \ref{fig:Coverage2b} present the received power from the LoS and NLoS paths, respectively. As seen in the results, the power distribution patterns at 3.7~GHz and 7.4~GHz are nearly identical, highlighting the potential of lower FR3 frequencies to offer both good coverage and plenty of bandwidth.
+
+ \begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figure/RayTracingUrbanArea.png} 
+  \caption{Ray tracing simulation for Herald Square in New York City}
+  \label{fig:Coverage1} % optional label for referencing
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Course-notes/Lecture 2/figure/Coverage2_map.png}
+    \caption{The map of the area}
+    \label{fig:map}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Course-notes/Lecture 2/figure/Coverage2_setup.png}
+    \caption{Simulation setup}
+    \label{fig:Setup}
+  \end{minipage}
+  
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}[b]{0.9\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figure/Coverage2_LOS.png}
+    \caption{Simulated coverage for line-of-sight (LoS) propagation}
+    \label{fig:Coverage2a}
+  \end{minipage}
+  
+  \vspace{0.5em} % small space between figures
+
+  \begin{minipage}[b]{0.9\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figure/Coverage2_NLOS.png}
+    \caption{Simulated coverage for non-line-of-sight (NLoS) propagation}
+    \label{fig:Coverage2b}
+  \end{minipage}
+\end{figure}
+
+\subsection{Uppermidband Spectrum Sharing}
+
+As new services are introduced, we are facing a shortage of available frequency bands. Therefore, a meaningful approach to support all services is to share the existing spectrum. To ensure sufficient performance, we need detailed information about the operational characteristics and use cases of the systems that will share the band. However, this information—especially regarding federal usage—is not publicly available with the level of detail required for developing efficient spectrum sharing methods.
+
+The upper mid-band, in particular, is largely allocated to various federal agencies as primary users. Therefore, to enable 6G operations in this band, it is essential to establish sharing mechanisms between federal and commercial users. To achieve this, we must improve existing spectrum sharing techniques and explore more advanced methods~\cite{M23}.
+
+Before going into the details of FR3 allocations across different services, I want to briefly introduce the types of services that exist in this band. These services can be divided into two main groups: 10 scientific services and 5 non-scientific services, as follows~\cite{W24}:
+\subsubsection{Scientific Services }
+\subsubsection{Scientific Services}
+\begin{itemize}
+    \item \textbf{Earth Exploration Satellite Service (EESS)}: These services use satellites to monitor and collect data on the Earth's surface, oceans, and atmosphere. They are primarily used for environmental monitoring, resource management, and disaster management, and include applications such as remote sensing and Earth observation.
+    
+    \item \textbf{Inter-Satellite Service (ISS)}: This service involves communication between satellites in orbit. It facilitates data transmission between satellites, supporting relay communications and global positioning systems (GPS). It is vital for satellite networks that require inter-satellite links for reliable communication.
+    
+    \item \textbf{Meteorological Satellite Service (MetSat)}: These services are dedicated to providing weather-related data using satellites. They monitor weather patterns, provide climate data, and are crucial for forecasting and tracking severe weather events such as hurricanes and storms.
+    
+    \item \textbf{Space Research Service (SRS)}: Space research services are used for scientific studies, including exploring outer space, studying the universe, and conducting experiments in space. They support scientific missions that gather information about space phenomena, planets, and cosmic radiation.
+    
+    \item \textbf{Radio Astronomy Service (RAS)}: This service involves using radio waves to observe celestial objects and phenomena. It allows for the study of stars, galaxies, and cosmic events through radio frequencies.
+\end{itemize}
+
+\subsubsection{Non-Scientific Services}
+\begin{itemize}
+    \item \textbf{Fixed Service (FS)}: The Fixed Service refers to communication between stationary locations, typically through wireline or microwave systems. It is used for point-to-point communication, including land-based networks such as telephone lines, internet, and broadcasting systems.
+
+    \item \textbf{Mobile Service (MS)}: The Mobile Service enables communication for users who are in motion, using devices such as mobile phones or vehicles. It allows for wireless communication across large areas, typically over cellular networks.
+
+    \item \textbf{Fixed Satellite Service (FSS)}: FSS refers to satellite-based communication between fixed points on the Earth's surface. It is used for various services, including television broadcasting, internet connectivity, and private business communication.
+
+    \item \textbf{Maritime Mobile Satellite Service (MMSS)}: This service provides satellite communication for ships and other maritime vessels. It is crucial for navigation, safety, and communication at sea.
+
+    \item \textbf{Radiolocation Service (RLS)}: RLS uses electromagnetic waves for locating objects, including aircraft, ships, and vehicles. It is a key technology for navigation and tracking systems such as radar and GPS.
+
+    \item \textbf{Aeronautical Radionavigation Service (AR)}: This service ensures the safe navigation of aircraft through the use of radio signals. It includes systems such as radar, VOR (VHF Omnidirectional Range), and GPS.
+
+    \item \textbf{Mobile Satellite Service (MSS)}: MSS provides satellite communication to mobile users in remote or hard-to-reach areas. It supports services such as satellite phones and mobile data transmission, which are crucial for communication in regions without terrestrial networks.
+\end{itemize}
+
+
+
+
+
+\subsection*{References}
+\beginrefs
+
+     \bibentry{E24S} Ericsson,\href{https://www.ericsson.com/49ac9c/assets/local/reports-papers/white-papers/2024/6g-spectrum.pdf}{“6G Spectrum,” White Paper, 2024.}
+     
+     \bibentry{E22} Ericsson, \href{https://www.ericsson.com/en/blog/2022/11/why-its-time-to-talk-6g}{“Why It’s Time to Talk 6G,”} Blog post, 2022. 
+
+    \bibentry{ES24} Ericsson, \href{https://www.ericsson.com/en/blog/2024/3/6g-standardization-timeline-and-technology-principles}{“6G Standardization Timeline and Technology Principles,”} Blog post, 2024. 
+
+    \bibentry{Y24} Wireless Future, \href{https://www.youtube.com/watch?v=70BOKA0PmdE}{“6G: What, Why and How?”}, YouTube video, 2024. 
+    
+     \bibentry{I23} ITU-R, \href{https://www.itu.int/dms_pubrec/itu-r/rec/m/R-REC-M.2160-0-202311-I%21%21PDF-E.pdf}{"Recommendation ITU-R M.2160-0: 6G Vision and Spectrum"}, 2023.
+
+     
+    \bibentry{B24} E. Björnson, F. Kara, N. Kolomvakis, A. Kosasih, P. Ramezani, and M. B. Salman, “Enabling 6G Performance in the Upper Mid-Band Through Gigantic MIMO,” arXiv preprint arXiv:2407.05630, 2024.
+
+    \bibentry{Sa24} Samsung,\href{https://research.samsung.com/blog/Upper-Mid-Band-Spectrum-for-6G-Opportunities-and-Key-Enablers}{“Upper Mid-Band Spectrum for 6G: Opportunities and Key Enablers,”} 2024. 
+    
+    \bibentry{Y25} Wireless Future, \href{https://www.youtube.com/watch?v=TJK1PvfAgQU}{“6G in the Upper Mid-Band: The Rise of Gigantic MIMO”}, YouTube video, 2024.
+
+
+    \bibentry{K24} S. Kang, M. Mezzavilla, S. Rangan, A. Madanayake, S. B. Venkatakrishnan, G. Hellbourg, M. Ghosh, H. Rahmani, and A. Dhananjay, “Cellular wireless networks in the upper mid-band,” IEEE Open Journal of the Communications Society, 2024.
+
+    \bibentry{E24} Ericsson, "Ericsson Mobility Report, November 2024". [Online]. Available: \url{https://www.ericsson.com/.../mobility-report-november-2024.pdf}
+
+    \bibentry{F23} FCC, “Consolidated 6G Paper,” 2023. [Online]. Available: \url{https://www.fcc.gov/.../Consolidated_6G_Paper_FCCTAC23_Final_for_Web.pdf}
+
+    
+
+    
+
+   
+
+    \bibentry{S24} ShareTechnote, “6G Spectrum,” 2024. [Online]. Available: \url{https://www.sharetechnote.com/html/6G/6G_Spectrum.html}
+
+    
+
+    
+
+    \bibentry{IP24} International Telecommunication Union (ITU), “ITU Helps Countries Achieve Robust Radio Frequency Planning,” 2024. [Online]. Available: \url{https://www.itu.int/.../robust-radio-frequency-planning/}
+
+    \bibentry{F25} PDH Online, “U.S. Frequency Allocation Chart,” 2025. [Online]. Available: \url{https://pdhonline.com/courses/e411/e411content.pdf}
+
+    \bibentry{N16} National Telecommunications and Information Administration (NTIA), “United States Frequency Allocation Chart”, 2016. [Online]. Available: \url{https://www.ntia.gov/page/united-states-frequency-allocation-chart}.
+
+    \bibentry{M23} A. Mukhopadhyay, \href{https://policycommons.net/artifacts/4822253/a-preliminary-view-of-spectrum-bands-in-the-7125/5658809/}{"A Preliminary View of Spectrum Bands in the 7.125–24 GHz Range; and a Summary of Spectrum Sharing Frameworks"}, FCC Report, 2023.
+
+    \bibentry{W24} Wikipedia Contributors, \href{https://en.wikipedia.org/wiki/Main_Page}{"Wikipedia}, 2024.
+
+
+\endrefs
+\end{document}
+
+
+
+
+
