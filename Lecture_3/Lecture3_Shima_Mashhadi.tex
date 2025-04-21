@@ -1,0 +1,319 @@
+\documentclass[twoside]{article}
+\usepackage{hyperref}
+\usepackage{graphics}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{cite,graphicx,algorithm,enumerate}
+\usepackage{amssymb}
+\usepackage[makeroom]{cancel}
+\usepackage[autostyle]{csquotes}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf EEEE789 Spectrum Sharing \& Management
+                        \hfill Spring 2025} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture 3: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Lecturer: #3 \hfill Scribe: #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+   {\bf Disclaimer}: {\it These notes have not been subjected to the
+   usual scrutiny reserved for formal publications.  The lectures may not be distributed
+   outside this class without the written permission of the Instructor. These notes are meant to accompany in-person lectures and are not meant to replace those.}
+   \vspace*{4mm}
+}
+
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\lecture{1}{Introduction to Near-Field Communication}{Shima Mashhadi}{}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+%\section{Blah-de-blah}
+%
+%Blahty-blah blah.
+%
+%Remember to include figures if the notes have them, or if you think they're generally useful.
+%Ditto with references, in bibtex format, as below.
+%
+%Keep these general principles in mind
+%
+%\url{http://web.cs.ucla.edu/~sherstov/teaching/2012-winter/docs/scribe-instructions.pdf}
+%
+%\ldots
+\section{Current Allocation in the Upper Mid-Band}
+
+In the last session, we reviewed the different services that exist in the upper mid-band. In this session, we will examine the frequency bands allocated to each of these services, as well as identify potential frequency ranges that may be available for 6G communication~\cite{M23}.
+
+\subsection{7.125-8.5 GHz}
+This band is just above the FR1 and have a good coverage. right now it used primarily for extensive fixed services but recently used for unlicensed use on a non-interference basis to existing incumbents. 
+The largest current user of this band are Fixed Services (FS), Fixed Satelite Services (FSS) and Mobile Satelite Services (MSS) and they are the biggest challenges for sharing with 6G. 20\% of the FS usage are by Department of the Defence (DoD) also in the satellite allocation there are DoD operations. Other usages are available in specific locations and is more likely that can be shared with 6G. Additionally, the 8400-8500 MHz is allocated to the Space Research Satelite in downlink (i.e. passive observatory of the space) which is sensitive to interference.  The Federal usage of this band include the the Federal Aviation Administration’s (FAA) use of this band for fixed point-to-point microwave communications networks to connect remote long-range aeronautical radio-navigation radars to air traffic control centers , the Defense Satellite Communications Systems (DSCS) series of geostationary satellites (DL) and the Wideband Gapfiller Satellite (WGS). Therefore, the use of the band for fixed assignments in the 7.125 – 8.5 GHz has been declining~\cite{M23}.
+
+
+\subsection{8.5-13.75 GHz}
+The largest single frequency allocation in this range belongs to the Radiolocation Service (RLS), which is used by both federal and non-federal users. This band is not available for sharing due to its critical use. A portion of this band is reserved by federal agencies for radar systems. NASA also uses the 8.55–8.65 GHz range to capture images for Earth studies and operates additional radar systems in this and the 9.3–9.8 GHz bands for scientific purposes.
+
+Several radar systems also operate in the 9–9.5 GHz range, used by federal agencies such as the FAA and the Coast Guard for safety-related applications.
+
+The 10.7–11.7 GHz band is used by non-federal users for Fixed Services (FS) and Fixed Satellite Services (FSS). Both federal and non-federal communication satellite earth stations operate here for voice and data services over commercial geostationary satellites (GSO). NOAA uses the 10.7–10.8 GHz band for passive Earth sensing from space.
+
+The 12.7–13.25 GHz band is used by non-federal users for FS, FSS, and Mobile Services (MS). There is also some scientific use of this band, such as radio astronomy research by the National Science Foundation (NSF) and space research applications.
+
+The 13.25–13.75 GHz band is mostly used by the government for radar operations, including search and tracking radars and missile/gun fire-control systems.
+
+In summary, the 10.7–13.25 GHz range has significant non-federal use. The 12.2–13.25 GHz range is being considered for 6G and may be shared with other services. The 13.25–13.75 GHz range could also be considered for 6G with limited sharing under restrictions~\cite{M23}.
+
+\subsection{13.75--17.1 GHz}
+
+The main point about this band is that large portions are allocated to Radiolocation Services (RLS), Space Research Services (SRS), and Fixed Services (FS). The 14.2--14.4 GHz range is not used by federal users and could be shared with 6G. In this band, Fixed Satellite Services (FSS) also operate on a co-primary basis for non-federal users, meaning 6G could share the band with FSS.
+
+The lower portion (13.75--14 GHz) is allocated to federal FS as a primary user and is not available for 6G use. The 14.8--15.35 GHz band is allocated for federal Mobile Services (MS) and Space Research Services (SRS).
+
+\paragraph{Specific Federal Uses:}
+\begin{itemize}
+    \item \textbf{NASA} uses the 13.75--14.8 GHz band for spacecraft communications and satellite uplinks for weather data and monitoring.
+    \item \textbf{NSF} uses the 13.75--14.5 GHz range for radio astronomy research, including the study of quasars.
+    \item \textbf{Federal agencies} use this band for satellite communications, including voice, video, and data transmissions between Earth and satellites.
+\end{itemize}
+
+\paragraph{Non-Federal Use:}
+\begin{itemize}
+    \item Used for Fixed Satellite Services (FSS), including internet and TV services by businesses and consumers.
+    \item These services are paired with downlink bands in the 11.7--12.2 GHz range.
+\end{itemize}
+
+This band supports a wide range of research, military, and commercial satellite applications. Different sub-bands are allocated for specific uses, and some portions are shared between federal and non-federal users.
+
+\subsection{17.1--24 GHz}
+
+The 17.1--24 GHz band presents a promising opportunity for 6G spectrum sharing, though it is already heavily used for various critical services.
+
+A portion of the band, specifically 17.7--17.8 GHz, is not allocated for federal use, making it an immediate candidate for future 6G deployment. Additionally, the 17.7--18.6 GHz and 18.8--20.2 GHz segments hold potential for coexistence, particularly if limited to earth station use rather than mobile user equipment. This part of the band is widely used for commercial Fixed Satellite Services (FSS).
+
+The 17.7--18.3 GHz and 19.3--19.7 GHz bands are primarily allocated to non-federal Fixed Services (FS), used for point-to-point communication, including broadband and satellite links. Likewise, 17.7--17.8 GHz and 18.3--19.7 GHz are allocated to non-federal FSS (downlink), while 17.8--19.7 GHz is shared with federal FSS. These bands are crucial for broadband access, satellite connectivity, and mobile services in aviation, maritime, and government operations, including emergency communications.
+
+The 18.6--18.8 GHz band is vital for the Earth Exploration-Satellite Service (EESS) and the Space Research Service (SRS)—both passive—used for environmental monitoring and scientific research. These services rely on interference-free operation to collect critical data such as weather patterns, ocean surface conditions, and soil moisture.
+
+NASA uses the 18.6--18.8 GHz band for passive Earth sensing applications, including the measurement of rainfall, ocean wind speed, and atmospheric water vapor. The 17.8--19.7 GHz range is also used by the NSF for radio astronomy research, supporting the study of celestial objects and spectral-line observations.
+
+Given these essential applications, the 17.8--18.6 GHz and 18.8--20.2 GHz bands appear to be the most promising for 6G sharing. However, any use of these bands for 6G must be carefully coordinated to ensure that existing satellite services, scientific research, and environmental monitoring are not disrupted. These considerations are critical for enabling 6G technologies to coexist with current high-priority users.
+
+\section{Nearfield communication for 6G}
+
+As we review the potential available frequency bands for 6G, it becomes clear that 6G will have slightly more bandwidth than 5G. However, the data rate requirements for 6G are expected to be significantly higher. To meet these demands, researchers are considering increasing the number of antennas at the base station to create more data layers. This approach is referred to as an Extremely Large MIMO system (XL-MIMO), where a large antenna aperture is used to support the high data rates expected in 6G.
+
+As systems move toward higher frequencies and use larger numbers of antennas, it becomes important to revisit the channel model for these new configurations. In this section, we consider a simple line-of-sight (LOS) model to examine how the channel characteristics change. 
+
+We begin by analyzing the path loss at high frequencies and then discuss how the phase of the received signal is affected.
+
+\subsection{Pathloss as high frequency}
+As we know from Friis’ formula, the free space path loss can be modeled as:
+
+\begin{equation}
+    PL = \frac{A}{4\pi d^2}
+\end{equation}
+
+where \(A\) is the effective antenna area. In the case of an isotropic antenna, this is given by \(A = \frac{\lambda^2}{4\pi}\), and \(d\) is the distance between the transmitter and the receiver.
+
+In a Single-Input Single-Output (SISO) system, moving to higher frequencies leads to a smaller antenna area (as \(A\) scales with \(\lambda^2\)), which results in higher path loss. In a Multiple-Input Multiple-Output (MIMO) system, if we keep the physical aperture size fixed while moving to higher frequencies, it is possible to maintain the same path loss—or even achieve better path loss performance. However, the cost of doing so is that we must fill the aperture with a sufficient number of antenna elements. This means that the number of antennas must increase proportionally to \(\frac{1}{\lambda^2}\), as the size of each element decreases with the wavelength.
+
+\subsection{Nearfield communication}
+Some might assume that increasing the number of antennas simply results in a larger channel matrix, and that the same mathematical models used in conventional systems will still apply to 6G. However, increasing the number of antennas—or using a large antenna aperture at higher frequencies—fundamentally changes the propagation properties of the signal.
+
+As we increase the antenna count and move toward higher frequencies, the Fresnel region of the antenna aperture expands. As a result, a significant portion of the coverage area shifts into the near-field communication regime, which alters the behavior of the channel and requires new modeling and design considerations.
+Here, we aim to examine the meaning of the Fresnel (near-field) region for an aperture antenna. We begin with the well-known SIMO (Single-Input Multiple-Output) channel model:
+
+\begin{align}
+    h_1 &= \frac{\lambda \sqrt{G}}{4 \pi r} e^{-j \frac{2\pi}{\lambda} r} \\[6pt]
+    \mathbf{H} &= h_1 \begin{bmatrix}
+        1, 
+        e^{-j \frac{2\pi}{\lambda} d \cos\theta}, 
+        \ldots, 
+        e^{-j \frac{2\pi}{\lambda} (N-1)d \cos\theta}
+    \end{bmatrix}^T
+\end{align}
+
+This formulation assumes that the incident signals at the receiver antennas are approximately parallel—that is, the transmitter is located in the far-field region of the receiver array, or equivalently, the wavefront of the signal is considered planar.
+
+However, if we consider a more accurate expression for the phase shift at the \(n\)-th antenna, the channel model becomes:
+
+\begin{equation}
+    h_n = h_1 e^{-j \frac{2\pi}{\lambda} \left( \frac{n^2 d^2}{2r} - n d \cos\theta \right)}
+\end{equation}
+
+This expression introduces a non-linear phase shift term, \(\frac{2\pi}{\lambda} \cdot \frac{n^2 d^2}{2r}\), which is typically neglected under the assumption that the transmitter is far enough away (i.e., \(r\) is large). 
+
+The definition of the Fraunhofer distance (\(d_F\)) arises from this term. The Fraunhofer distance is the boundary beyond which this non-linear phase shift becomes negligible (commonly when it is less than \(\frac{\pi}{8}\)). This results in the following condition for the distance between the transmitter and receiver:
+
+\begin{equation}
+    d_F = \frac{2D^2}{\lambda}
+\end{equation}
+
+Where the $D$ represents the aperture length. If the distance \(r\) is less than \(d_F\), the receiver is considered to be in the near-field of the transmitter, where a non-linear phase variation occurs across the aperture. This means that the wavefront of the signal is no longer planar but spherical.
+
+Another important aspect to examine when moving to higher frequencies and larger aperture sizes is the power variation across the aperture. 
+
+If we denote \(r\) as the distance from the transmitter to the center of the aperture, then the distance from the transmitter to the antenna elements located at the corners of the aperture can be approximated as:
+
+\begin{equation}
+    r + \frac{D^2}{8r}
+\end{equation}
+
+The maximum power variation across the aperture can then be estimated using the following ratio:
+
+\begin{equation}
+    \frac{r^2}{(r + \Delta)^2} \approx \frac{r^2}{\left( r + \frac{D^2}{8r} \right)^2}
+\end{equation}
+
+This expression reveals that if \(r = 2D\), the power variation across the aperture becomes negligible.
+
+Based on this, we define the Fresnel (radiating near-field) region as:
+
+\begin{equation}
+    d_B < r < d_F
+\end{equation}
+
+This means the Fresnel region is characterized by negligible amplitude (power) variation but non-negligible phase variation across the aperture. If the user lies within the Fresnel region of the aperture, the system operates in a near-field communication regime~\cite{B24}.
+
+
+\section{National Radio Dynamic Zones (SII-NRDZ)}
+Unlike the NRQZ (Quiet Zone), where radio transmitters are prohibited from sending electromagnetic waves, the Dynamic Zone is an area where radio waves of any kind can be transmitted on the same frequency at the same time. The primary goal of the Dynamic Zone is to explore advanced technologies for spectrum sharing and co-existence, especially for passive spectrum users such as radio astronomy and geosensing satellites. This is particularly important for passive services in California.
+
+Spectrum is a limited and valuable resource. As new services are introduced, there is growing pressure on available bandwidth to meet the needs of both terrestrial and satellite communications. Traditional spectrum-sharing methods are no longer sufficient to address the increased demand for spectrum access. To tackle this issue, the NSF created the Dynamic Zone to investigate better solutions for dynamic spectrum sharing.
+
+The Dynamic Zone is a designated area in the U.S. where controlled experiments are conducted to study dynamic spectrum management systems. These systems can detect interference and take corrective actions when needed.
+
+The interference scenarios studied range from mmWave bands to the $3.55-3.7$ GHz Citizens Broadband Radio Service (CBRS) in the U.S~\cite{N22}. %\cite{nsf_sii_nrdz}.
+
+An example of the Dynamic Zone is the Hat Creek Radio Observatory in California, where researchers are exploring how to coordinate spectrum usage between radio astronomy and satellite systems. The HCRO-NRDZ project has two main objectives: 
+
+\textbf{RF Baseline Surveys (RFBS):} This involves deploying antennas at the site to measure baseline noise levels. These measurements help set interference thresholds for the observatory and contribute to open radio frequency datasets.
+
+\textbf{Exploring new dynamic spectrum sharing approaches:} This focuses on studying how passive and active services can share spectrum and evaluating current spectrum-sharing methods used at the site~\cite{C20,Y22}.
+
+
+\section{ Project Cyclops and The "Water Hole" Concept}
+Project Cyclops and other SETI (Search for Extraterrestrial Intelligence) efforts, including discussions about how extraterrestrial civilizations might communicate with us. The project team created a design for coordinating large numbers of radio telescopes to search for Earth-like radio signals at a distance of up to 1,000 light-years to find intelligent life.
+
+But which frequency we should look at if any Extraterrestrial Intelligence want probably communicate with us.
+In the case of Project Cyclops, scientists considered the "water hole" as an ideal frequency band for extraterrestrial communication. 
+
+The "water hole" is a narrow band of electromagnetic frequencies between 1,420 MHz and 1,666 MHz. It is called the "water hole" because it lies between the frequencies at which hydrogen (1,420 MHz) and hydroxyl (1,666 MHz) molecules naturally emit radiation in space. 
+
+Low frequencies, below 1 GHz, are typically absorbed by gases in the atmosphere. This limits their range for communication, especially for long-distance signals. However, hydrogen and hydroxyl are fundamental in the universe, and their emissions are relatively unaffected by the Earth's atmosphere. As a result, signals within this frequency range can travel across vast distances with minimal absorption by the atmosphere or interference from environmental noise. On the other hand, higher frequencies experience scattering and attenuation due to interactions with the ionosphere and other layers of the atmosphere, which causes the signal to degrade. The water hole is strategically positioned in a quiet region of the spectrum that minimizes both absorption and scattering, making it ideal for clear, long-range communication.
+ 
+
+Moreover, The water hole is located in a relatively low-noise region of the electromagnetic spectrum. Signals in this range experience less interference from both natural and man-made sources compared to other parts of the spectrum. 
+ Signals in the water hole are also able to travel vast distances with minimal degradation. All of these reasons, make it suitable for communication across the immense distances of space.
+
+the SETI project is still continuing after about 60 years in the hope to finding any sign of other intelligence creature in our universe~\cite{S20,W24a,W24b}. 
+
+\subsection*{References}
+\beginrefs
+
+     \bibentry{N22} National Science Foundation, \href{https://www.nsf.gov/funding/opportunities/sii-nrdz-spectrum-innovation-initiative-national-radio-dynamic-zones/505990/nsf22-579}{"NSF 22-579: Spectrum Innovation Initiative: National Radio Dynamic Zones (SII-NRDZ)"}, 2022.
+
+
+    \bibentry{M23} A. Mukhopadhyay, \href{https://policycommons.net/artifacts/4822253/a-preliminary-view-of-spectrum-bands-in-the-7125/5658809/}{"A Preliminary View of Spectrum Bands in the 7.125–24 GHz Range; and a Summary of Spectrum Sharing Frameworks"}, FCC Report, 2023.
+
+    \bibentry{C20} University of Colorado Boulder, \href{https://www.colorado.edu/lab/wirg/research/spectrum-sharing/nsf-sii-nrdz-hcro-nrdz-field-deployment}{"NSF SII-NRDZ HCRO-NRDZ Field Deployment"}, n.d.
+
+    \bibentry{B24} E. Björnson, C. B. Chae, R. W. Heath Jr., T. L. Marzetta, 
+    A. Mezghani, L. Sanguinetti, F. Rusek, M. R. Castellanos, D. Jun, and Ö. T. Demir, 
+    "Towards 6G MIMO: Massive spatial multiplexing, dense arrays, and interplay between 
+    electromagnetics and processing," arXiv preprint arXiv:2401.02844, Jan. 5, 2024.
+    
+    \bibentry{Y22} YouTube, \href{https://www.youtube.com/watch?v=y_akfkU30aw}{"NSF SII-NRDZ HCRO-NRDZ Field Deployment Overview"}, 2022.
+
+    \bibentry{S20} SETI Net, \href{https://www.seti.net/indepth/waterhole/waterhole.php}{"The Water Hole"}, n.d.
+
+    \bibentry{W24a} Wikipedia Contributors, \href{https://en.wikipedia.org/wiki/Water_hole_(radio)}{"Water hole (radio)"}, Wikipedia, 2024.
+
+    \bibentry{W24b} Wikipedia Contributors, \href{https://en.wikipedia.org/wiki/Project_Cyclops}{"Project Cyclops"}, Wikipedia, 2024.
+
+\endrefs
+\end{document}
+
+
+
+
+
+
+
+
+
+
